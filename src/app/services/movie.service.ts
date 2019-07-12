@@ -16,6 +16,7 @@ export class MovieService {
   // metodo para buscar las peliculas
   searchMovies(title: string, type: string) {
     this.url = `http://www.omdbapi.com/?s=${encodeURI(title)}&type=${type}&apikey=${this.apiKey}`;
+    console.log(this.url);
     return this.http.get<IMovies>(this.url).pipe(map(results => results['Search']));
   }
 

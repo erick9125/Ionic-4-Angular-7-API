@@ -6,4 +6,29 @@
 
 <ion-content>
   <ion-searchbar [(ngModel)]="term" (ionChange)="searchChanged($event)"></ion-searchbar>
+  <ion-item>
+    <ion-label>Seleccione una categoria</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+      <ion-select-option selected="true" value="">Todos</ion-select-option>
+      <ion-select-option value="movie">Peliculas</ion-select-option>
+      <ion-select-option  value="series">Series</ion-select-option>
+      <ion-select-option value="episode">Episodios</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-item button *ngFor="let movies of (results | async)">
+      <ion-avatar slot="start">
+        <img src="{{movies.Poster}}" alt="{{movies.Title}}">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <h3>{{movies.Title}}</h3>
+        {{movies.Year}}
+      </ion-label>
+      <ion-icon slot="end" *ngIf="movies.Type === 'movie'" name="videocam"></ion-icon>
+      <ion-icon slot="end" *ngIf="movies.Type === 'series'" name="tv"></ion-icon>
+      <ion-icon slot="end" *ngIf="movies.Type === 'episode'" name="tablet-portrait"></ion-icon>
+
+    </ion-item>
+  </ion-list>
 </ion-content>
